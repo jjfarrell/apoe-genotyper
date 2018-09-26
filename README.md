@@ -7,12 +7,12 @@ Requirements:
       pysam 
       
       
-      rs429358|rs7412|Name
-      --------|------|-----
-      C       |T     |ε1
-      T       |T     |ε2
-      T       |C     |ε3
-      C       |C     |ε4
+rs429358|rs7412|Name
+--------|------|-----
+C       |T     |ε1
+T       |T     |ε2
+T       |C     |ε3
+C       |C     |ε4
 
 # Installation
 
