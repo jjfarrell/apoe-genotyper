@@ -24,6 +24,7 @@ Args                              |Description
 -v   --vcf"                       |Phased VCF with APOE snps rs429358 and rs7412" (required)
 -g   --genome ["GRCh37","GRCh38"] |GRCh37 or GRCh38 reference genome" (required) 
 -o   --out APOE                   |output file prefix (required)
--p   --project                    |Project Name 
+-p   --project                    |Project Name (replaces VCF filename in output
 -h  --help                        |Help
 
+#Examples
