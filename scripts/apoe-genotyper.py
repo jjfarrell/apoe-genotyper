@@ -107,14 +107,14 @@ for sample in samples:
     f.write(args.project+"\t"+sample +"\t"+ rs429358_GT  +"\t"+ rs7412_GT  +"\t"+ APOE + "\n"  )
 # write out summary
 line=args.project+"\t"+str(n)
-print(apoe_count.keys())
+# print(apoe_count.keys())
 for k in sorted(apoe_count.keys()):
     value=apoe_count[k]
     freq=value/(2*n)
     line=line+"\t"+str(value)
     line=line+"\t"+"{0:.4%}".format(freq)
 for k in sorted(apoe_gt_count.keys()):
-        freq=apoe_gt_count[k]/(2.0*n)
+        freq=apoe_gt_count[k]/n
         line=line+"\t"+str(apoe_gt_count[k])
         line=line+"\t"+"{0:.4%}".format(freq)
 line=line+"\t"+ str(rs429358_R2)+"\t"+ str(rs7412_R2)
