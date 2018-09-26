@@ -16,7 +16,8 @@ Requirements:
       pysam 
 # Preparation
 
-For accurate genotyping of the APOE,
+For accurate genotyping of the APOE, the VCF should be phased (eg: eagle or SHAPEI2). 
+
 # Usage
 
 apoe-genotyper.py  -v VCF -g {GRCh37,GRCh38} -o OUT [-p PROJECT] [-h]
