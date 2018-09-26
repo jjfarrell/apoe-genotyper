@@ -55,23 +55,23 @@ ApoE3_N| Number of alleles with ApoE-3
 ApoE3_pct|Per Cent of alleles with APOE-1
 ApoE4_N| Number of alleles with ApoE-4
 ApoE4_pct|Per Cent of alleles with APOE-1
-e11_n|Number of genotypes with ApoE Genotype ε1ε1
+e11_n|Number of samples with ApoE Genotype ε1ε1
 e11_pct
-e12_n|Number of genotypes with ApoE Genotype ε1ε2
+e12_n|Number of samples with ApoE Genotype ε1ε2
 e12_pct
-e13_n|Number of genotypes with ApoE Genotype ε1ε3
+e13_n|Number of samples with ApoE Genotype ε1ε3
 e13_pct
-e14_n|Number of genotypes with ApoE Genotype ε1ε4
+e14_n|Number of samples with ApoE Genotype ε1ε4
 e14_pct
-e22_n|Number of genotypes with ApoE Genotype ε2ε2
+e22_n|Number of samples with ApoE Genotype ε2ε2
 e22_pct
-e23_n|Number of Samples with ApoE Genotype ε2ε3
+e23_n|Number of samples with ApoE Genotype ε2ε3
 e23_pct
-e24_n|Number of Samples with ApoE Genotype ε2ε4
+e24_n|Number of samples with ApoE Genotype ε2ε4
 e24_pct
-e33_n|Number of Samples with ApoE Genotype ε3ε3
+e33_n|Number of samples with ApoE Genotype ε3ε3
 e33_pct
-e34_n Number of Samples with ApoE Genotype ε3ε4
+e34_n|Number of samples with ApoE Genotype ε3ε4
 e34_pct
 e44_n|Number of Samples with ApoE Genotype ε4ε4
 e44_pct
