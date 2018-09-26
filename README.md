@@ -14,13 +14,14 @@ Requirements:
       T       |C     |ε3
       C       |C     |ε4
 
-Installation
+# Installation
 
-Usage
+# Usage
 
 apoe-genotyper.py  -v VCF -g {GRCh37,GRCh38} -o OUT [-p PROJECT] [-h]
+
 Args                              |Description
-----------------------------------|---------------------
+----------------------------------|---------------------------------------------------------
 -v   --vcf"                       |Phased VCF with APOE snps rs429358 and rs7412" (required)
 -g   --genome ["GRCh37","GRCh38"] |GRCh37 or GRCh38 reference genome" (required) 
 -o   --out APOE                   |output file prefix (required)
