@@ -16,7 +16,7 @@ Requirements:
       pysam 
 # Preparation
 
-For accurate genotyping of the APOE, the VCF should be phased (eg: eagle or SHAPEI2). 
+For the most accurate genotyping of all the APOE genotypes, the VCF should be phased (eg: eagle or SHAPEI2). This will help distinquish between the ambigous genotypes(e2e4 and e1e3). Without phasing, the e1e3 will default to the much more likely e2e4 as e1 is very rare.
 
 # Usage
 
@@ -24,10 +24,10 @@ apoe-genotyper.py  -v VCF -g {GRCh37,GRCh38} -o OUT [-p PROJECT] [-h]
 
 Args                              |Description
 ----------------------------------|---------------------------------------------------------
--v   --vcf                       |Phased VCF with APOE snps rs429358 and rs7412" (required)
+-v   --vcf                        |VCF with APOE snps rs429358 and rs7412" (required)
 -g   --genome ["GRCh37","GRCh38"] |GRCh37 or GRCh38 reference genome" (required) 
 -o   --out                        |APOE output file prefix (required)
--p   --project                    |Project Name (replaces VCF filename in output)
+-p   --project                    |Project name (replaces VCF filename in output)
 -h  --help                        |Help
 
 Two output files are generated:
