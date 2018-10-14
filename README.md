@@ -16,7 +16,7 @@ Requirements:
       pysam 
 # Preparation
 
-For the most accurate genotyping of all the APOE genotypes, the VCF should be phased (eg: eagle or SHAPEI2). This will help distinquish between the ambigous genotypes(e2e4 and e1e3). Without phasing, the e1e3 will default to the much more likely e2e4 as e1 is very rare.
+For the most accurate genotyping of all the APOE genotypes, the VCF should be phased (eg: eagle or SHAPEI2). This will help distinquish between the ambigous genotypes(e2e4 and e1e3). Without phasing, the e1e3 will default to the more probable e2e4 as e1 is very rare.
 
 # Usage
 

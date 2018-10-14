@@ -5,22 +5,44 @@ import argparse
 import vcf
 import sys
 # import pysam
+
+
 def callAPOE(rs429358_gt,rs7412_gt):
 # function to convert SNP genotypes to APOE Genotypes
       apoe={}
 # Check if phased
       if "|" not in rs429358_gt or "|" not in rs7412_gt:
-            sys.exit("ERROR: The vcf file must be phased for APOE genotyping!")
-      #   rs429358/rs7412
-      #      TT       CT     CT       CC
-#      print("snps:",rs429358_gt,rs7412_gt)
-      apoe={'11':'1','01':'2','00':'3','10':'4','..':'.'}
-      rs429358_a=rs429358_gt.split("|")
-      rs7412_a= rs7412_gt.split("|")
-      apoe1= rs429358_a[0]+rs7412_a[0]
-      apoe2= rs429358_a[1]+rs7412_a[1]
-      apoe_gt=apoe[apoe1]+apoe[apoe2]
-      apoe_gt=''.join(sorted(apoe_gt))
+#            print("INFO: VCF File not phased.")
+            apoe={'1111':'11',
+                  '0111':'12',
+                  '1101':'14',
+                  '0011':'22',
+                  '0001':'23',
+                  '0101':'24',
+                  '0000':'33',
+                  '0100':'34',
+                  '1100':'44',
+                  '....':'..'}
+
+#                 '0101':'13' ambiguous set to 24 when GT not phased
+            rs429358_a=rs429358_gt.split("/")
+            rs7412_a= rs7412_gt.split("/")
+
+            gt=''.join(sorted(rs429358_a[0]+rs429358_a[1])+sorted(rs7412_a[0]+rs7412_a[1]))
+            if "." in gt:
+                  gt='....'
+            apoe_gt=apoe[gt]
+      else:
+            #   rs429358/rs7412
+            #      TT       CT     CT       CC
+#          print("snps:",rs429358_gt,rs7412_gt)
+            apoe={'11':'1','01':'2','00':'3','10':'4','..':'.'}
+            rs429358_a=rs429358_gt.split("|")
+            rs7412_a= rs7412_gt.split("|")
+            apoe1= rs429358_a[0]+rs7412_a[0]
+            apoe2= rs429358_a[1]+rs7412_a[1]
+            apoe_gt=apoe[apoe1]+apoe[apoe2]
+            apoe_gt=''.join(sorted(apoe_gt))
       return apoe_gt
 # Parse Parameters
 args_parser = argparse.ArgumentParser()
@@ -35,7 +57,7 @@ if args.project=="":
     args.project=args.vcf
 
 f= open(args.out+".tsv","w")
-log= open(args.out+".log","w")
+log= open(args.out+".summary.tsv","w")
 
 
 
@@ -82,6 +104,7 @@ for a1 in a:
          gt=a1+a2
          gt=''.join(sorted(gt))
          apoe_gt_count[gt]=0
+apoe_gt_count['..']=0
 apoe_label=['ApoE1','ApoE2','ApoE3','ApoE4','NA   ']
 n=len(samples)
 if n== 0:
@@ -120,6 +143,7 @@ for k in sorted(apoe_gt_count.keys()):
 line=line+"\t"+ str(rs429358_R2)+"\t"+ str(rs7412_R2)
 # write out log
 header="project\tNSamples\tAPOE_MISS_N\tAPOE_MISS_pct\tApoE1_N\tApoE1_pct\tApoE2_N\tApoE2_pct\tApoE3_N\tApoE3_pct\tApoE4_N\tApoE4_pct"
+# if imputed VCF, INCLUDE R2 Values
 for gt in sorted(apoe_gt_count.keys()):
     header=header+"\te"+gt+"_n"
     header=header+"\te"+gt+"_pct"
@@ -132,3 +156,18 @@ log.close()
 print("APOE genotypes written to  : "+args.out+".tsv")
 print("Summary counts written to  : "+args.out+".log")
 print("Number of samples processed: "+str(n)+" samples")
+print("\nAPOE Allele Summary")
+for k in sorted(apoe_count.keys()):
+    line="ApoE"+k+"\t"
+    value=apoe_count[k]
+    freq=value/(2*n)
+    line=line+"\t"+str(value)
+    line=line+"\t"+"{0:.4%}".format(freq)
+    print(line)
+print("\nAPOE Genotype Summary")
+for k in sorted(apoe_gt_count.keys()):
+        line="ApoE"+k+"\t"
+        freq=apoe_gt_count[k]/n
+        line=line+"\t"+str(apoe_gt_count[k])
+        line=line+"\t"+"{0:.4%}".format(freq)
+        print(line)
