@@ -6,6 +6,11 @@ import vcf
 import sys
 # import pysam
 
+def apoeDose(a1,a2) :
+      apoe_dose={"1":0,"2":0,"3":0,"4":0}
+      apoe_dose[a1]=apoe_dose[a1]+1
+      apoe_dose[a2]=apoe_dose[a2]+1
+      return apoe_dose
 
 def callAPOE(rs429358_gt,rs7412_gt):
 # function to convert SNP genotypes to APOE Genotypes
@@ -110,7 +115,8 @@ n=len(samples)
 if n== 0:
       sys.exit("ERROR: No Samples! Is it a sites only vcf?")
 # Print out samples with genotypes
-f.write("Project\tSample" +"\t"+ "rs429358_T_C"  +"\t"+ "rs7412_C_T"  +"\t"+ "APOE" + "\n" )
+# Header
+f.write("Project\tSample" +"\t"+ "rs429358_T_C"  +"\t"+ "rs7412_C_T"  +"\t"+ "APOE" + "\te1_dose\te2_dose\te3_dose\te4_dose\n" )
 for sample in samples:
     rs429358_GT=rs429358_record.genotype(sample)['GT']
     if "R2" in rs429358_record.INFO.keys():
@@ -124,10 +130,11 @@ for sample in samples:
           rs7412_R2  = ""
     APOE=callAPOE(rs429358_GT,rs7412_GT)
     a1,a2=APOE
+    dose=apoeDose(a1,a2)
     apoe_count[a1]= apoe_count[a1]+1
     apoe_count[a2]= apoe_count[a2]+1
     apoe_gt_count[APOE]= apoe_gt_count[APOE]+1
-    f.write(args.project+"\t"+sample +"\t"+ rs429358_GT  +"\t"+ rs7412_GT  +"\t"+ APOE + "\n"  )
+    f.write(args.project+"\t"+sample +"\t"+ rs429358_GT  +"\t"+ rs7412_GT  +"\t"+ APOE + "\t" + str(dose["1"]) + "\t" + str(dose["2"]) + "\t" + str(dose["3"])+ "\t" + str(dose["4"]) + "\n" )
 # write out summary
 line=args.project+"\t"+str(n)
 # print(apoe_count.keys())
@@ -160,14 +167,14 @@ print("\nAPOE Allele Summary")
 for k in sorted(apoe_count.keys()):
     line="ApoE"+k+"\t"
     value=apoe_count[k]
-    freq=value/(2*n)
+    freq=value/(2.0*n)
     line=line+"\t"+str(value)
     line=line+"\t"+"{0:.4%}".format(freq)
     print(line)
 print("\nAPOE Genotype Summary")
 for k in sorted(apoe_gt_count.keys()):
         line="ApoE"+k+"\t"
-        freq=apoe_gt_count[k]/n
+        freq=apoe_gt_count[k]/(1.0*n)
         line=line+"\t"+str(apoe_gt_count[k])
         line=line+"\t"+"{0:.4%}".format(freq)
         print(line)
