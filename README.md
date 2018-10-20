@@ -32,22 +32,29 @@ Args                              |Description
 
 Two output files are generated:
 
-{output_prefix}.tsv This file contains the sample genotypes in a tab delimited file.
+[output_prefix].tsv This file contains the sample genotypes in a tab delimited file.
 
-Column|Description
+
+Column|Heading
 ------|-----------
 Column 1 |project
-Column 2 |Sample 
-Column 3 |rs429358 GT
-Column 4 |rs7412 GT
-Column 5 |APOE GT
+Column 2 |sample 
+Column 3 |rs429358_T_C
+Column 4 |rs7412_C_T
+Column 5 |APOE
+Column 6 |e1_dose
+Column 7 |e2_dose
+Column 8 |e3_dose
+Column 9 |e4_dose
 
-output_prefix.log
+[output_prefix].summary.tsv
 
 Column|Description
 ------|---------------------------
 project|Project or VCF name
 NSamples|Number of Samples
+APOE_MISS_N|Samples missing APOE
+APOE_MISS|Samples Missing APOE Frequency
 ApoE1_N|Number of alleles with ApoE-1 (very rare)
 ApoE1_pct|Per Cent of alleles with APOE-1
 ApoE2_N| Number of alleles with ApoE-2
@@ -56,27 +63,36 @@ ApoE3_N| Number of alleles with ApoE-3
 ApoE3_pct|Per Cent of alleles with APOE-1
 ApoE4_N| Number of alleles with ApoE-4
 ApoE4_pct|Per Cent of alleles with APOE-1
+eMISSING_n|Number of samples with ApoE Missing Genotype
+eMISSING_freq|Frequency of samples with ApoE Missing Genotype
 e11_n|Number of samples with ApoE Genotype ε1ε1
-e11_pct
+e11_freq|Frequency of ε1ε1
 e12_n|Number of samples with ApoE Genotype ε1ε2
-e12_pct
+e12_freq|Frequency of ε1ε2
 e13_n|Number of samples with ApoE Genotype ε1ε3
-e13_pct
+e13_freq|Frequency of ε1ε3
 e14_n|Number of samples with ApoE Genotype ε1ε4
-e14_pct
+e14_freq|Frequency of ε1ε4
 e22_n|Number of samples with ApoE Genotype ε2ε2
-e22_pct
+e22_freq|Frequency of ε2ε2
 e23_n|Number of samples with ApoE Genotype ε2ε3
-e23_pct
+e23_freq|Frequency of ε2ε3
 e24_n|Number of samples with ApoE Genotype ε2ε4
-e24_pct
+e24_freq|Frequency of ε2ε4
 e33_n|Number of samples with ApoE Genotype ε3ε3
-e33_pct
+e33_freq|Frequency of ε3ε3
 e34_n|Number of samples with ApoE Genotype ε3ε4
-e34_pct
+e34_freq|Frequency of ε3ε4
 e44_n|Number of Samples with ApoE Genotype ε4ε4
-e44_pct
-
-
+e44_freq|Frequency of ε4ε4
+rs429358_R2|rs429358_R2 (If Available)
+rs7412_R2|rs7412_R2 (If Available)
 
 #Examples
+python apoe-genotyper --project ADSP --vcf adsp_5k_phased.vcf.gz --out adsp_apoe_5k -g GRCh38 >adsp_apoe_5k.log
+
+Will produce two files:
+   adsp_apoe_5k.tsv
+   adsp_apoe_5k.summary.tsv
+   adsp_apoe_5k.log
+

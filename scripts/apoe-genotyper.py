@@ -116,18 +116,18 @@ if n== 0:
       sys.exit("ERROR: No Samples! Is it a sites only vcf?")
 # Print out samples with genotypes
 # Header
-f.write("Project\tSample" +"\t"+ "rs429358_T_C"  +"\t"+ "rs7412_C_T"  +"\t"+ "APOE" + "\te1_dose\te2_dose\te3_dose\te4_dose\n" )
+f.write("project\tsample" +"\t"+ "rs429358_T_C"  +"\t"+ "rs7412_C_T"  +"\t"+ "apoe" + "\te1_dose\te2_dose\te3_dose\te4_dose\n" )
 for sample in samples:
     rs429358_GT=rs429358_record.genotype(sample)['GT']
     if "R2" in rs429358_record.INFO.keys():
           rs429358_R2=rs429358_record.INFO['R2']
     else:
-          rs429358_R2=""
+          rs429358_R2="NA"
     rs7412_GT  =rs7412_record.genotype(sample)['GT']
     if "R2" in rs7412_record.INFO.keys():
           rs7412_R2  =rs7412_record.INFO['R2']
     else:
-          rs7412_R2  = ""
+          rs7412_R2  = "NA"
     APOE=callAPOE(rs429358_GT,rs7412_GT)
     a1,a2=APOE
     dose=apoeDose(a1,a2)
@@ -140,29 +140,32 @@ line=args.project+"\t"+str(n)
 # print(apoe_count.keys())
 for k in sorted(apoe_count.keys()):
     value=apoe_count[k]
-    freq=value/(2*n)
+    freq=value/(2.0*n)
     line=line+"\t"+str(value)
-    line=line+"\t"+"{0:.4%}".format(freq)
+    line=line+"\t"+"{0:.4}".format(freq)
 for k in sorted(apoe_gt_count.keys()):
-        freq=apoe_gt_count[k]/n
+        freq=apoe_gt_count[k]/(n*1.0)
         line=line+"\t"+str(apoe_gt_count[k])
-        line=line+"\t"+"{0:.4%}".format(freq)
+        line=line+"\t"+"{0:.4}".format(freq)
 line=line+"\t"+ str(rs429358_R2)+"\t"+ str(rs7412_R2)
-# write out log
-header="project\tNSamples\tAPOE_MISS_N\tAPOE_MISS_pct\tApoE1_N\tApoE1_pct\tApoE2_N\tApoE2_pct\tApoE3_N\tApoE3_pct\tApoE4_N\tApoE4_pct"
+# write out summary
+header="project\tNSamples\tAPOE_MISS_N\tAPOE_MISS\tApoE1_N\tApoE1_AF\tApoE2_N\tApoE2_AF\tApoE3_N\tApoE3_AF\tApoE4_N\tApoE4_AF"
 # if imputed VCF, INCLUDE R2 Values
 for gt in sorted(apoe_gt_count.keys()):
-    header=header+"\te"+gt+"_n"
-    header=header+"\te"+gt+"_pct"
+    label="e"+gt
+#     print(gt,apoe_label)
+    label=label.replace("..","MISSING")
+    header=header+"\t"+label+"_n"
+    header=header+"\t"+label+"_freq"
 header=header+"\trs429358_R2\trs7412_R2"
 log.write(header+"\n")
 log.write(line+"\n")
 f.close()
 log.close()
 
-print("APOE genotypes written to  : "+args.out+".tsv")
-print("Summary counts written to  : "+args.out+".log")
-print("Number of samples processed: "+str(n)+" samples")
+print("APOE genotypes written to: "+args.out+".tsv")
+print("Summary counts written to: "+args.out+".summary.tsv")
+print("Number of samples        : "+str(n)+" samples")
 print("\nAPOE Allele Summary")
 for k in sorted(apoe_count.keys()):
     line="ApoE"+k+"\t"
