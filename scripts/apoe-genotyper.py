@@ -7,9 +7,12 @@ import sys
 # import pysam
 
 def apoeDose(a1,a2) :
-      apoe_dose={"1":0,"2":0,"3":0,"4":0}
-      apoe_dose[a1]=apoe_dose[a1]+1
-      apoe_dose[a2]=apoe_dose[a2]+1
+      if a1=='.' or a2=='.':
+            apoe_dose={"1":'.',"2":'.',"3":'.',"4":'.'}
+      else:
+               apoe_dose={"1":0,"2":0,"3":0,"4":0}
+               apoe_dose[a1]=apoe_dose[a1]+1
+               apoe_dose[a2]=apoe_dose[a2]+1
       return apoe_dose
 
 def callAPOE(rs429358_gt,rs7412_gt):
