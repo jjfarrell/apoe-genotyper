@@ -20,7 +20,7 @@ For the most accurate genotyping of all the APOE genotypes, the VCF should be ph
 
 # Usage
 
-apoe-genotyper.py  -v VCF -g {GRCh37,GRCh38} -o OUT [-p PROJECT] [-h]
+apoe-genotyper.py  -v VCF -g [GRCh37,GRCh38] -o OUT [-p PROJECT] [-h]
 
 Args                              |Description
 ----------------------------------|---------------------------------------------------------
@@ -32,7 +32,7 @@ Args                              |Description
 
 Two output files are generated:
 
-[output_prefix].tsv This file contains the sample genotypes in a tab delimited file.
+[output_prefix].tsv This file contains each sample's genotypes in a tab delimited file. Missing is specified with "."
 
 
 Column|Heading
@@ -47,7 +47,8 @@ Column 7 |e2_dose
 Column 8 |e3_dose
 Column 9 |e4_dose
 
-[output_prefix].summary.tsv
+[output_prefix].summary.tsv contains tab delimited list of summary information
+
 
 Column|Description
 ------|---------------------------
@@ -85,8 +86,8 @@ e34_n|Number of samples with ApoE Genotype ε3ε4
 e34_freq|Frequency of ε3ε4
 e44_n|Number of Samples with ApoE Genotype ε4ε4
 e44_freq|Frequency of ε4ε4
-rs429358_R2|rs429358_R2 (If Available)
-rs7412_R2|rs7412_R2 (If Available)
+rs429358_R2|rs429358_R2 (If Available from Imputed VCF)
+rs7412_R2|rs7412_R2 (If Available from Imputed VCF)
 
 #Examples
 python apoe-genotyper --project ADSP --vcf adsp_5k_phased.vcf.gz --out adsp_apoe_5k -g GRCh38 >adsp_apoe_5k.log
