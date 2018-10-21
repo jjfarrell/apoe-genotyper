@@ -1,5 +1,5 @@
 # apoe-genotyper
-Utility to genotype allelic variants of ApoE protein(e1,e2,e3,e4) using two SNPs rs429358 and rs7412 from a phased VCF.
+Utility to genotype allelic variants of ApoE protein(e1,e2,e3,e4) using two SNPs rs429358 and rs7412 from a phased or unphased VCF.
       
 rs429358|rs7412|ApoE
 --------|------|-----
