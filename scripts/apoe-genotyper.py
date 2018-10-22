@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # APOE-genotyper
 # Calls APOE genotype from Phased VCF
 #
@@ -5,7 +6,6 @@ import argparse
 import vcf
 import sys
 # import pysam
-
 def apoeDose(a1,a2) :
       if a1=='.' or a2=='.':
             apoe_dose={"1":'.',"2":'.',"3":'.',"4":'.'}
@@ -81,8 +81,6 @@ elif args.genome == 'GRCh38':
     rs7412_pos   = 44908822
 
 #read vcf file
-print("APOE genotyping VCF file   : " + args.vcf )
-
 
 vcf_reader = vcf.Reader( filename=args.vcf )
 
@@ -120,8 +118,11 @@ if n== 0:
 # Print out samples with genotypes
 # Header
 f.write("project\tsample" +"\t"+ "rs429358_T_C"  +"\t"+ "rs7412_C_T"  +"\t"+ "apoe" + "\te1_dose\te2_dose\te3_dose\te4_dose\n" )
+PHASED=False
 for sample in samples:
     rs429358_GT=rs429358_record.genotype(sample)['GT']
+    if '|' in  rs429358_GT:
+        PHASED=True
     if "R2" in rs429358_record.INFO.keys():
           rs429358_R2=rs429358_record.INFO['R2']
     else:
@@ -165,6 +166,10 @@ log.write(header+"\n")
 log.write(line+"\n")
 f.close()
 log.close()
+if PHASED:
+  print("Phased APOE genotyping VCF file   : " + args.vcf )
+else:
+  print("Unphased APOE genotyping VCF file   : " + args.vcf )
 
 print("APOE genotypes written to: "+args.out+".tsv")
 print("Summary counts written to: "+args.out+".summary.tsv")
