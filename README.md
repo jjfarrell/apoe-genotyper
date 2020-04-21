@@ -12,7 +12,7 @@ C       |C     |ε4
 
 Requirements: 
       python 3, 
-      pyvcf,
+      pyvcf (available on PyPi (https://pypi.org/project/PyVCF/) 
 
 # Preparation
 
